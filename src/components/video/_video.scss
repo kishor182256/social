@@ -34,7 +34,7 @@ width: 45px;
       margin-bottom: 0.1rem;
 
       color: #fff;
-    //   @include line-clamp(1);
+      @include line-clamp(1);
    }
 
    &__details {

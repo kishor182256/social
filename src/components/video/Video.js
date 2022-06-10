@@ -49,7 +49,10 @@ const Video = ({ video, channelScreen }) => {
             </span>{' '}
             <span> 3 Days Ago </span>
          </div>
-         
+         <div className='video__channel'>
+         <img src='https://media.istockphoto.com/photos/african-man-recording-video-on-camera-at-home-picture-id1317677134?b=1&k=20&m=1317677134&s=170667a&w=0&h=TkpQlVluLRMGlh8FzXqQphcPgpJuBtVpgLSKf3WyS0I=' alt=""/>
+         <p>Rain Hat</p>
+       </div>
       </div>
    )
 }

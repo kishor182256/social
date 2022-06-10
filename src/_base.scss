@@ -24,5 +24,16 @@ body {
     font-family: "Roboto",sans-serif;
 }
 
+@mixin line-clamp($number) {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: $number;
+    -webkit-box-orient: vertical;
+ }
+
+ // to hide scroll bar
+ ::-webkit-scrollbar {
+    width: 0px;
+ }
 
 
