@@ -7,21 +7,21 @@ import './_login.scss';
 
 const Login = () => {
        const dispatch = useDispatch();
-       const token  = useSelector((state)=>state)
+       const token  = useSelector((state)=>state.authReducer.accessToken)
+        // const token = localStorage.getItem('token');
        const history = useHistory()
        console.log('token', token);
   const handleLogin = () => {
-    // history.push('/')
     dispatch(login())
   }
 
   useEffect(()=>{
+    
      if(token){
-       setInterval(()=>{
          history.push('/')
-       },2000)
+         window.location.reload()
      }
-  },[token,history])
+  },[token])
   return (
     <div className='login'>
        <div className='login__container'>

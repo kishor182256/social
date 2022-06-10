@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import Header from "./components/header/Header";
 import HomeScreen from "./components/Homescreen/HomeScreen";
@@ -11,6 +11,8 @@ import './_app.scss';
 import { Route } from "react-router-dom";
 import Search from "./components/Search/Search";
 import { Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const Layout = ({ children }) => {
   const [sidebar, toggleSidebar] = useState(false)
@@ -35,10 +37,19 @@ const Layout = ({ children }) => {
 
 function App() {
   
+   const token = useSelector((state)=>state)
+
+    const history = useHistory();
+   console.log('=====>',token);
+
+   useEffect(()=>{
+      if(token){
+            history.push('/login')
+      }
+   },[token])
 
   return (
     <>
-      <Router>
         <Switch>
         <Route exact path="/">
            <Layout>
@@ -59,7 +70,6 @@ function App() {
             <Redirect exact to='/' />
          </Route>
         </Switch>
-      </Router>
     </>
     
   );
