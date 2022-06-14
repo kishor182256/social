@@ -1,12 +1,14 @@
 import { LOAD_PROFILE, LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOG_OUT } from "../actionTypes"
 
 const initialState = {
-    accessToken:
-        null,
-    user
-       : null,
-    loading: false,
- }
+   accessToken: sessionStorage.getItem('access-token')
+      ? sessionStorage.getItem('access-token')
+      : null,
+   user: sessionStorage.getItem('profile')
+      ? JSON.parse(sessionStorage.getItem('profile'))
+      : null,
+   loading: false,
+}
 
 export const authReducer = (prevState = initialState, action) => {
     const { type, payload } = action

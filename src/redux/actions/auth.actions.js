@@ -10,7 +10,8 @@ export const login = () =>async dispatch => {
         dispatch({
             type: LOGIN_REQUEST,
          })
-         const provider = new firebase.auth.GoogleAuthProvider()
+         const provider = new firebase.auth.GoogleAuthProvider();
+         provider.addScope('https://www.googleapis.com/auth/youtube.force-ssl')
 
     
 
@@ -21,6 +22,11 @@ export const login = () =>async dispatch => {
        photoUrl:response.additionalUserInfo.profile.picture
    }
 
+   
+   sessionStorage.setItem('access-token', token)
+   sessionStorage.setItem('profile', JSON.stringify(profile))
+
+
       dispatch({
           type:LOGIN_SUCCESS,
           payload:token
@@ -29,8 +35,18 @@ export const login = () =>async dispatch => {
           type:LOAD_PROFILE,
           payload:profile
       })
-   console.log('GoogleAuthProviderresponse',token);
+//    console.log('GoogleAuthProviderresponse',token);
     }catch(error) {
         console.error(error);           
     }
+}
+
+
+export const logout= () => async dispatch=>{
+   await  auth.signOut();
+   dispatch({
+    type:'LOG_OUT'
+   })
+   sessionStorage.removeItem('access-token')
+   sessionStorage.removeItem('profile')
 }

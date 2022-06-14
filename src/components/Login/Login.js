@@ -7,21 +7,27 @@ import './_login.scss';
 
 const Login = () => {
        const dispatch = useDispatch();
-       const token  = useSelector((state)=>state.authReducer.accessToken)
-        // const token = localStorage.getItem('token');
+      //  const token  = useSelector((state)=>state.authReducer.accessToken)
+        const token = sessionStorage.getItem('access-token')
        const history = useHistory()
-       console.log('token', token);
-  const handleLogin = () => {
+       console.log('token', sessionStorage.getItem('access-token'));
+  const handleLogin = (e) => {
+    e.preventDefault();
     dispatch(login())
   }
 
   useEffect(()=>{
-    
      if(token){
-         history.push('/')
-         window.location.reload()
+         history.push('/')        
      }
-  },[token])
+  },[token,history])
+
+  if(token){
+    setTimeout(()=>{
+      window.location.reload()
+     },3000)
+  }
+
   return (
     <div className='login'>
        <div className='login__container'>

@@ -28,7 +28,7 @@ const Layout = ({ children }) => {
               handleToggleSidebar={handleToggleSidebar}
            />
            <Container fluid className='app__main '>
-              {children}
+            <HomeScreen/>
            </Container>
         </div>
      </>
@@ -37,14 +37,14 @@ const Layout = ({ children }) => {
 
 function App() {
   
-   const token = useSelector((state)=>state)
+   const token = useSelector((state)=>state.authReducer.accessToken)
 
     const history = useHistory();
-   console.log('=====>',token);
 
    useEffect(()=>{
-      if(token){
+      if(!token){
             history.push('/login')
+            
       }
    },[token])
 
