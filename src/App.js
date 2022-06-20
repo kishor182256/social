@@ -13,6 +13,7 @@ import Search from "./components/Search/Search";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import WatchScreen from "./components/Homescreen/screen/WatchScreen";
 
 const Layout = ({ children }) => {
   const [sidebar, toggleSidebar] = useState(false)
@@ -27,8 +28,8 @@ const Layout = ({ children }) => {
               sidebar={sidebar}
               handleToggleSidebar={handleToggleSidebar}
            />
-           <Container fluid className='app__main '>
-            <HomeScreen/>
+           <Container  className='app__main '>
+            {children}
            </Container>
         </div>
      </>
@@ -64,6 +65,11 @@ function App() {
         <Route path="/search">
            <Layout>
              <Search/>
+           </Layout>
+        </Route>
+        <Route path="/watch/:id">
+           <Layout>
+             <WatchScreen/>
            </Layout>
         </Route>
         <Route>

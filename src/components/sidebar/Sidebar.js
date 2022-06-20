@@ -1,60 +1,71 @@
-import React from 'react';
-import './_sidebar.scss';
+import React from 'react'
+import './_sidebar.scss'
 
-import {MdHome,MdHistory,
-  MdSubscriptions,MdThumbUp,
-  MdExitToApp,MdLibraryBooks,
-  MdSentimentDissatisfied} from 'react-icons/md'
-import { useDispatch } from 'react-redux';
+import {
+   MdSubscriptions,
+   MdExitToApp,
+   MdThumbUp,
+   MdHistory,
+   MdLibraryBooks,
+   MdHome,
+   MdSentimentDissatisfied,
+} from 'react-icons/md'
+import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { logout } from '../../redux/actions/auth.actions';
 
+const Sidebar = ({ sidebar, handleToggleSidebar }) => {
+   const dispatch = useDispatch()
+   const logOutHandler = () => {
+      dispatch(logout())
+   }
+   return (
+      <nav
+         className={sidebar ? 'sidebar open' : 'sidebar'}
+         onClick={() => handleToggleSidebar(false)}>
+         <Link to='/'>
+            <li>
+               <MdHome size={23} />
+               <span>Home</span>
+            </li>
+         </Link>
+         <Link to='/feed/subscriptions'>
+            <li>
+               <MdSubscriptions size={23} />
+               <span>Subscriptions</span>
+            </li>
+         </Link>
 
-const Sidebar = ({sidebar,handleToggleSidebar}) => {
-  const dispatch = useDispatch()
-  const handleLogout = () => {
-     dispatch(logout())
-     window.location.reload()
-  }
-  console.log(sidebar);
-  return (
-    <nav className={sidebar?'sidebar open':'sidebar'}>
-        <li>
-        <MdHome size={22} onClick={()=>handleToggleSidebar()}/>
-        <span>Home</span>
-        </li>
+         <li>
+            <MdThumbUp size={23} />
+            <span>Liked Video</span>
+         </li>
 
-        <li>
-        <MdSubscriptions size={22} onClick={()=>handleToggleSidebar()}/>
-        <span>Subscriptions</span>
-        </li>
+         <li>
+            <MdHistory size={23} />
+            <span>History</span>
+         </li>
 
-        <li>
-        <MdThumbUp size={22} onClick={()=>handleToggleSidebar()}/>
-        <span>Likes</span>
-        </li>
+         <li>
+            <MdLibraryBooks size={23} />
+            <span>Library</span>
+         </li>
+         <li>
+            <MdSentimentDissatisfied size={23} />
+            <span>I don't Know</span>
+         </li>
 
-        <li>
-        <MdHistory size={22} onClick={()=>handleToggleSidebar()}/>
-        <span>History</span>
-        </li>
+         <hr />
 
-        <li>
-        <MdLibraryBooks size={22} onClick={()=>handleToggleSidebar()}/>
-        <span>Library</span>
-        </li>
+         <li onClick={logOutHandler}>
+            <MdExitToApp size={23} />
+            <span>Log Out</span>
+         </li>
 
-        <li>
-        <MdSentimentDissatisfied size={22} onClick={()=>handleToggleSidebar()}/>
-        <span>Sentiments</span>
-        </li>
-
-         <li onClick={handleLogout}>
-        <MdExitToApp size={22} />
-        <span>Logout</span>
-        </li>
-
-    </nav>
-  )
+         <hr />
+      </nav>
+   )
 }
 
 export default Sidebar
+

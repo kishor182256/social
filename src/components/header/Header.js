@@ -7,7 +7,7 @@ const imgpath = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB/CAMAAAANd
 const Header = ({handleToggleSidebar}) => {
   return (
     <div className='header'>
-      <FaBars className='header_menu' size={26} onClick={()=>handleToggleSidebar()}/>
+      <FaBars className='header__menu' size={26} onClick={()=>handleToggleSidebar()}/>
       <img className='header_logo' 
        src='http://pngimg.com/uploads/youtube/youtube_PNG2.png' 
        alt='headerImage'/>
@@ -17,7 +17,7 @@ const Header = ({handleToggleSidebar}) => {
          <button type='submit'><AiOutlineSearch size={22}/></button>
        </form>
 
-       <div className='header_icons'>
+       <div className='header__icons'>
            <MdNotifications size={28}/>
            <MdApps size={28}/>
             <img src= {imgpath}  alt= 'path' />

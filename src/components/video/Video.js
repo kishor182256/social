@@ -9,6 +9,8 @@ import numeral from 'numeral'
 const Video = ({video}) => {
    const videos = useSelector(state => state.homeVideosReducer)
    const [duration,setDuration] = useState(null)
+   const [views, setViews] = useState(null)
+   
 
    const {
       id,
@@ -31,57 +33,47 @@ const Video = ({video}) => {
 
 
    useEffect(() => {
-      const get_video_details =  async() => {
-        const data= await request('/videos', {
+      const get_video_details = async () => {
+         const data = await request('/videos', {
             params: {
                part: 'contentDetails,statistics',
                id: _videoId,
             },
-           
+
          })
-           setDuration(data.data.items[0].contentDetails.duration);
-         
+         setDuration(data.data.items[0].contentDetails.duration);
+         setViews(data.data.items[0].statistics.viewCount)
       }
       get_video_details()
-      
-   }, [])
+
+   }, [_videoId])
 
 
 
    return (
-      <>
-         {
-            videos.videos?.map((videos) => {
-               return (
+      <div className='video'>
+         <div className='video__top'>
+            <img src={medium.url} alt='' />
+            {/* <LazyLoadImage src={medium.url} effect='blur' /> */}
+            <span className='video__top__duration'>{_duration}</span>
+         </div>
+         <div className='video__title'>{title}</div>
+         <div className='video__details'>
+            <span>
+               <AiFillEye /> {numeral(views).format('0.a')} Views •{' '}
+            </span>{' '}
+            <span> {moment(publishedAt).fromNow()} </span>
+         </div>
+        
+            <div className='video__channel'>
+               <img src={medium.url} effect='blur' />
 
-                  <> <div className='video'>
-                     <div className='video__top'>
-                        <img className='video__top' src={videos?.snippet.thumbnails.medium.url}
-                           alt={videos.snippet.thumbnails.medium.url} />
-                        <span className='video__top__duration'>{_duration}</span>
-                        <div className='video__title'>{videos.snippet.title}</div>
-                        <div className='video__details'>
-                           <span>
-                              <AiFillEye /> {numeral(videos.statistics.viewCount).format('0.a')} •{' '}
-                           </span>{' '}
-                           <span> {moment(videos.snippet.publishedAt).fromNow()} </span>
-                        </div>
-                        <div className='video__channel'>
-                           <img src={videos?.snippet.thumbnails.medium.url} alt="" />
-                           <p>{videos.snippet.channelTitle}</p>
-                        </div>
-                     </div>
-
-                  </div>
-                  </>
-
-               )
-            })
-         }
-
-      </>
-
+               <p>{channelTitle}</p>
+            </div>
+      
+      </div>
    )
+      
 }
 
 export default Video
